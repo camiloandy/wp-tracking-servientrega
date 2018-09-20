@@ -111,11 +111,11 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
           $ciudadComprador = trim($ciudadComprador);
 
           $productData = get_postdata($product->get_id());
-          $vendorId = $productData['Author_ID'];
-          $departamentoVendedor = get_user_meta($vendorId, 'user_departamento')[0];
-          $departamentoVendedor = get_term_by('id', $departamentoVendedor, 'departamentos')->name;
+
+          $departamentoVendedor = strtoupper("cundinamarca");
           $departamentoVendedor = change_accent_mark($departamentoVendedor);
-          $ciudadVendedor = strtoupper(get_user_meta($vendorId, 'user_ciudad')[0]);
+          
+          $ciudadVendedor = strtoupper("bogota");
           $ciudadVendedor = change_accent_mark($ciudadVendedor);
 
           $origen = $ciudadVendedor . '-' . $departamentoVendedor;
@@ -129,10 +129,8 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
           $sobreFlete = ($precioTotal * 5) / 100;
           if ($sobreFlete < 2200) 
             $sobreFlete = 2200;
-            
-         update_option('example_data1',  file_exists("/home/triquinet/public_html/wp-content/plugins/wp-tracking-servientrega/csv-files/servientrega_cuatro_$firstLetter.csv"));
 
-          $archivo = fopen("/home/triquinet/public_html/wp-content/plugins/wp-tracking-servientrega/csv-files/servientrega_cuatro_$firstLetter.csv", "r");
+          $archivo = fopen("C:\\xampp71\htdocs\arbocol2\wp-content\plugins\wp-tracking-servientrega\csv-files\servientrega_cuatro_$firstLetter.csv", "r");
           while (($datos = fgetcsv($archivo)) == true) {
             $data = explode('|', $datos[0]);
 

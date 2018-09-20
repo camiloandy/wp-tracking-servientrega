@@ -109,11 +109,11 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
           $ciudadComprador = change_accent_mark($ciudadComprador);
 
           $productData = get_postdata($product->get_id());
-          $vendorId = $productData['Author_ID'];
-          $departamentoVendedor = get_user_meta($vendorId, 'user_departamento')[0];
-          $departamentoVendedor = get_term_by('id', $departamentoVendedor, 'departamentos')->name;
+          
+          $departamentoVendedor = strtoupper("cundinamarca");
           $departamentoVendedor = change_accent_mark($departamentoVendedor);
-          $ciudadVendedor = strtoupper(get_user_meta($vendorId, 'user_ciudad')[0]);
+          
+          $ciudadVendedor = strtoupper(get_option('origen_ciudad'));
           $ciudadVendedor = change_accent_mark($ciudadVendedor);
 
           $origen = $ciudadVendedor . '-' . $departamentoVendedor;
@@ -128,10 +128,9 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
           if ($sobreFlete < 300) 
             $sobreFlete = 300;
 
-          $archivo = fopen("/home/triquinet/public_html/wp-content/plugins/wp-tracking-servientrega/csv-files/servientrega_dos_$firstLetter.csv", "r");
+          $archivo = fopen("C:\\xampp71\htdocs\arbocol2\wp-content\plugins\wp-tracking-servientrega\csv-files\servientrega_dos_$firstLetter.csv", "r");
           while (($datos = fgetcsv($archivo)) == true) {
-            $data = explode('|', $datos[0]);
-  
+            $data = explode('|', $datos[0]);  
             if ($origen === $data[0] and $destino === $data[1]) {
               $zona = $data[2];
               break;
@@ -274,12 +273,16 @@ function servientregaValidateOrder( $posted )
       $ServientregaShipingMethod = new ServientregaShipingMethod();
       $weightLimit = (int) $ServientregaShipingMethod->settings['weight'];
       $weight = 0;
- 
-      foreach ($package['contents'] as $item_id => $values) { 
-        $_product = $values['data']; 
-        $weight = $weight + $_product->get_weight() * $values['quantity']; 
+
+      /*
+      if ($_product->get_weight()) {
+        foreach ($package['contents'] as $item_id => $values) { 
+          $_product = $values['data']; 
+          $weight = $weight + $_product->get_weight() * $values['quantity']; 
+        }  
       }
- 
+      */ 
+      
       $weight = wc_get_weight($weight, 'kg');
                 
       if ($weight > $weightLimit) { 

@@ -22,6 +22,7 @@ include __DIR__ . '/helpers/change_accent_mark.php';
 include __DIR__ . '/helpers/create-guie.php';
 include __DIR__ . '/helpers/available_payment_gateway.php';
 include __DIR__ . '/helpers/cpt-departamentos-ciudades.php';
+include __DIR__ . '/helpers/ajax-calls.php';
 include __DIR__ . '/includes/ShowInormationGuie.php';
 
 
@@ -47,6 +48,26 @@ if ( ! function_exists( 'WPTrackingServientregaJs') ) {
 add_action( 'wp_enqueue_scripts', 'WPTrackingServientregaJs' );
 //END
 
+//Agregando la hoja de estilos css para las paginas admin
+if ( ! function_exists( 'WPTrackingServientregaAdminCss' ) ) {
+  function WPTrackingServientregaAdminCss() {
+      wp_register_style( 'wptrackingservientregaadmincss', plugin_dir_url( __DIR__ ) . 'wp-tracking-servientrega/assets/css/admin-styles.css', '', 1 );
+      wp_enqueue_style( 'wptrackingservientregaadmincss' );
+  }
+}
+add_action( 'admin_enqueue_scripts', 'WPTrackingServientregaAdminCss' );
+//END
+
+//Agregando Javascripts para las paginas de admin
+if ( ! function_exists( 'WPTrackingServientregaAdminJs') ) {
+  function WPTrackingServientregaAdminJs() {
+    wp_register_script( 'wptrackingservientregaadminjs', plugin_dir_url( __DIR__ ) . 'wp-tracking-servientrega/assets/js/admin.js', '', '1', true );
+    wp_enqueue_script( 'wptrackingservientregaadminjs' );
+    wp_localize_script( 'wptrackingservientregaadminjs', 'wptrackingservientregaadminjs_vars', ['ajaxurl' => admin_url( 'admin-ajax.php' ) ] );
+  }
+}
+add_action( 'admin_enqueue_scripts', 'WPTrackingServientregaAdminJs' );
+//END
 
 //Init core plugin
 $pluginInit = new TrackingServientregaInit();

@@ -1,0 +1,43 @@
+form#origen-ciudad-departamento label,
+form#origen-ciudad-departamento input,
+form#origen-ciudad-departamento select {
+	display: block;
+}
+
+form#origen-ciudad-departamento label {
+	margin-top: 15px;
+}
+
+form#origen-ciudad-departamento select {
+	height: 36px;
+	width: 250px;
+}
+
+img.loading-cities-admin {
+	display: block;
+  position: relative;
+  top: -53px;
+  left: 255px;
+  opacity: .8;
+  display: none;
+}
+
+ input[type=submit] {
+	margin-top: 20px !important;
+}
+
+form#origen-ciudad-departamento img.success-img,
+form#origen-ciudad-departamento img.error-img,
+form#origen-ciudad-departamento img.load-img {
+  top: -29px;
+  left: 71px;
+  position: relative;
+  display: none;
+}
+
+form#origen-ciudad-departamento .messagge-template-error {
+	color: red;
+	font-size: 14px;
+	font-style: italic;
+	display: none;
+}
