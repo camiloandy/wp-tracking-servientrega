@@ -1,0 +1,17 @@
+.information-guie h2 {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+.information-guie table tbody th {
+    font-weight: 500;
+    padding: 10px !important;
+    margin: 0;
+}
+
+.information-guie table tbody td {
+    padding: 10px !important;
+    margin: 0;
+}
