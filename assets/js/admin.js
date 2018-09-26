@@ -109,13 +109,8 @@ jQuery(document).ready(function($) {
     var that = $(this).parent(),
         login = $('#login-servitentrega').val(),
         password = $('#password-servientrega').val(),
-        codigoFacturacion = $('#password-servientrega').val(),
+        codigoFacturacion = $('#codigo-facturacion-servientrega').val(),
         nombreCargue = $('#nombre-cargue-servientrega').val();
-
-        console.log(login);
-        console.log(password);
-        console.log(codigoFacturacion);
-        console.log(nombreCargue);
 
     $.ajax({
       url: wptrackingservientregaadminjs_vars.ajaxurl,

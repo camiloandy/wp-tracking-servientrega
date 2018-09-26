@@ -87,5 +87,5 @@ add_action( 'woocommerce_admin_order_data_after_shipping_address', 'my_custom_ch
 
 function my_custom_checkout_field_display_admin_order_meta($order){
     echo '<p><strong>'.__('Cedula').':</strong> ' . get_post_meta( $order->get_id(), '_billing_cedula', true ) . '</p>';
-    echo '<p><strong>'.__('N° Guía').':</strong> ' . get_post_meta( $order->get_id(), '_shipping_guia', true ) . '</p>';
+    echo '<p><strong>'.__('N° Guía').':</strong> ' . get_post_meta( $order->get_id(), 'data_servientrega_guie', true ) . '</p>';
 }

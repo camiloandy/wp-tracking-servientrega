@@ -32,10 +32,10 @@ function action_woocommerce_payment_complete( $callable, $dataOder)
   $ns = "http://tempuri.org/";
 
   $headerBody = array(
-    'login' => '900646650',
-    'pwd' => 'oefB3AtCP3kEqMHXfMV6xQ==',
-    'Id_CodFacturacion' => 'SER108183',
-    'Nombre_Cargue' =>'TRIQUINET'
+    'login' => get_option('login_servientrega'),
+    'pwd' => get_option('password_servientrega'),
+    'Id_CodFacturacion' => get_option('codigo_facturacion_servientrega'),
+    'Nombre_Cargue' => get_option('nombre_cargue_servientrega')
   );
 
   $header = new SOAPHeader($ns, 'AuthHeader', $headerBody);
