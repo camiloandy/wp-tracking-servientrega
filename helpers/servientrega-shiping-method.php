@@ -103,15 +103,19 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
           global $woocommerce;
           $comprador = $woocommerce->cart->get_customer();
           
-          $departamentoComprador = strtoupper($package['destination']['state']);
+          $departamentoComprador = $package['destination']['state'];
+          $departamentoComprador = get_term_by('id', $departamentoComprador, 'departamentos')->name;
           $departamentoComprador = change_accent_mark($departamentoComprador);
+          $departamentoComprador = strtoupper($departamentoComprador);
           $ciudadComprador = strtoupper($package['destination']['city']);
           $ciudadComprador = change_accent_mark($ciudadComprador);
 
           $productData = get_postdata($product->get_id());
           
-          $departamentoVendedor = strtoupper("cundinamarca");
+          $departamentoVendedor = get_option('origen_departamento');
+          $departamentoVendedor = get_term_by('id', $departamentoVendedor, 'departamentos')->name;
           $departamentoVendedor = change_accent_mark($departamentoVendedor);
+          $departamentoVendedor = strtoupper($departamentoVendedor);
           
           $ciudadVendedor = strtoupper(get_option('origen_ciudad'));
           $ciudadVendedor = change_accent_mark($ciudadVendedor);

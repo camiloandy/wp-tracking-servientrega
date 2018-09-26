@@ -103,9 +103,10 @@ if (in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_
           global $woocommerce;
           $comprador = $woocommerce->cart->get_customer();
           
-          $departamentoComprador = strtoupper($package['destination']['state']);
+          $departamentoComprador = $package['destination']['state'];
+          $departamentoComprador = get_term_by('id', $departamentoComprador, 'departamentos')->name;
           $departamentoComprador = change_accent_mark($departamentoComprador);
-          $departamentoComprador = trim($departamentoComprador);
+          $departamentoComprador = strtoupper($departamentoComprador);
           $ciudadComprador = strtoupper($package['destination']['city']);
           $ciudadComprador = change_accent_mark($ciudadComprador);
           $ciudadComprador = trim($ciudadComprador);
