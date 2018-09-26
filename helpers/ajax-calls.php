@@ -97,3 +97,23 @@ function saveDataConfigCiudadDepartamentoLista()
   wp_die();
 }
 //END
+
+//Codigo para guardar datos de configuracion de acceso de servientrega.
+add_action('wp_ajax_nopriv_wptrackingservientregaadminjs_ajax_saveDataAccesoServientrega','saveDataAccesoServientrega');
+add_action('wp_ajax_wptrackingservientregaadminjs_ajax_saveDataAccesoServientrega','saveDataAccesoServientrega');
+
+function saveDataAccesoServientrega()
+{
+  $login = $_POST['dataLogin'];
+  $password = $_POST['dataPassword'];
+  $codigoFacturacion = $_POST['dataCodigoFacturacion'];
+  $nombreCarque = $_POST['dataNombreCarque'];
+
+  update_option('login_servientrega', $login);
+  update_option('password_servientrega', $password);
+  update_option('codigo_facturacion_servientrega', $codigoFacturacion);
+  update_option('nombre_cargue_servientrega', $nombreCarque);
+
+  wp_die();
+}
+//END

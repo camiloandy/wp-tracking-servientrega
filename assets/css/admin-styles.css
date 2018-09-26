@@ -1,11 +1,14 @@
 form#origen-ciudad-departamento label,
 form#origen-ciudad-departamento input,
 form#origen-ciudad-departamento select,
-form#lista-ciudad-departamento input[type=submit]{
+form#lista-ciudad-departamento input[type=submit],
+form#datos-acceso-servientrega label,
+form#datos-acceso-servientrega input {
 	display: block;
 }
 
-form#origen-ciudad-departamento label {
+form#origen-ciudad-departamento label,
+form#datos-acceso-servientrega label {
 	margin-top: 15px;
 }
 
@@ -32,7 +35,10 @@ form#origen-ciudad-departamento img.error-img,
 form#origen-ciudad-departamento img.load-img,
 form#lista-ciudad-departamento img.success-img,
 form#lista-ciudad-departamento img.error-img,
-form#lista-ciudad-departamento img.load-img {
+form#lista-ciudad-departamento img.load-img,
+form#datos-acceso-servientrega img.success-img,
+form#datos-acceso-servientrega img.error-img,
+form#datos-acceso-servientrega img.load-img {
   top: -29px;
   left: 71px;
   position: relative;
@@ -40,7 +46,8 @@ form#lista-ciudad-departamento img.load-img {
 }
 
 form#origen-ciudad-departamento .messagge-template-error,
-form#lista-ciudad-departamento .messagge-template-error {
+form#lista-ciudad-departamento .messagge-template-error,
+form#datos-acceso-servientrega .messagge-template-error {
 	color: red;
 	font-size: 14px;
 	font-style: italic;

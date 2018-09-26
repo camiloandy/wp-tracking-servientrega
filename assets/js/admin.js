@@ -35,6 +35,9 @@ jQuery(document).ready(function($) {
 
   $('form#origen-ciudad-departamento input[type=submit]').click(function(evt){
   	evt.preventDefault();
+
+    var that = $(this).parent();
+
   	$('form#origen-ciudad-departamento span.messagge-template-error').css('display', 'none');
 
   	var origenDepartamento = $('form#origen-ciudad-departamento select#origen-departamento').val();
@@ -55,22 +58,24 @@ jQuery(document).ready(function($) {
         }, 
         beforeSend: function() {
           console.log('guardando...');
-          $('form#origen-ciudad-departamento img.load-img').css('display', 'inline');
-          $('form#origen-ciudad-departamento img.success-img').css('display', 'none');  
+          $(that).find('img.load-img').css('display', 'inline');
+          $(that).find('img.success-img').css('display', 'none');  
         },
         success: function(resp) {
           //console.log(resp);
-          $('form#origen-ciudad-departamento img.load-img').css('display', 'none');
+          $(that).find('img.load-img').css('display', 'none');
           
-          $('form#origen-ciudad-departamento input[type=submit]').prop('disabled', false);
-          $('form#origen-ciudad-departamento img.success-img').css('display', 'inline');  
-          $('form#origen-ciudad-departamento span.messagge-template-error').css('display', 'none');
+          $(that).find('input[type=submit]').prop('disabled', false);
+          $(that).find('img.success-img').css('display', 'inline');  
+          $(that).find('span.messagge-template-error').css('display', 'none');
         }
       });
   });
 
   $('form#lista-ciudad-departamento input[type=submit]').click(function(evt){
     evt.preventDefault();
+
+    var that = $(this).parent();
 
     var use_list_city_states = 0;
     if ($('#lista-ciudades-departamento-si').prop('checked') == true)
@@ -94,6 +99,45 @@ jQuery(document).ready(function($) {
           $('form#lista-ciudad-departamento input[type=submit]').prop('disabled', false);
           $('form#lista-ciudad-departamento img.success-img').css('display', 'inline');  
           $('form#lista-ciudad-departamento span.messagge-template-error').css('display', 'none');
+        }
+      });
+  });
+
+  $('form#datos-acceso-servientrega input[type=submit]').click(function(evt){
+    evt.preventDefault();
+
+    var that = $(this).parent(),
+        login = $('#login-servitentrega').val(),
+        password = $('#password-servientrega').val(),
+        codigoFacturacion = $('#password-servientrega').val(),
+        nombreCargue = $('#nombre-cargue-servientrega').val();
+
+        console.log(login);
+        console.log(password);
+        console.log(codigoFacturacion);
+        console.log(nombreCargue);
+
+    $.ajax({
+      url: wptrackingservientregaadminjs_vars.ajaxurl,
+      type: 'post',
+      data: {
+        action: 'wptrackingservientregaadminjs_ajax_saveDataAccesoServientrega',
+        dataLogin: login,
+        dataPassword: password,
+        dataCodigoFacturacion: codigoFacturacion,
+        dataNombreCarque : nombreCargue
+      }, 
+        beforeSend: function() {
+          console.log('guardando...');
+          $(that).find('img.load-img').css('display', 'inline');
+          $(that).find('img.success-img').css('display', 'none');  
+        },
+        success: function(resp) {
+          console.log(resp);
+          $(that).find('img.load-img').css('display', 'none');
+          $(that).find('input[type=submit]').prop('disabled', false);
+          $(that).find('img.success-img').css('display', 'inline');  
+          $(that).find('span.messagge-template-error').css('display', 'none');
         }
       });
   });

@@ -79,8 +79,12 @@
     <div class="col-12">
       <h3>Usar lista para ciudades y departamentos</h3>
       <form id="lista-ciudad-departamento">
-        <label>SÍ <input type="radio" name="lista-ciudades-departamentos" id="lista-ciudades-departamento-si" ></label>
-        <label>NO <input type="radio" name="lista-ciudades-departamentos" id="lista-ciudades-departamento-no" checked></label>
+
+        <?php $useList = get_option('use_list_city_states'); ?>
+        <label>SÍ <input type="radio" name="lista-ciudades-departamentos" id="lista-ciudades-departamento-si"
+          <?= $useList == 1 ? 'checked' : ''?> ></label>
+        <label>NO <input type="radio" name="lista-ciudades-departamentos" id="lista-ciudades-departamento-no" 
+          <?= $useList == 1 ? '' : 'checked'?> ></label>
 
         <input type="submit" value="Guardar" id="save-lista-ciudad-departamento" name="save-lista-ciudad-departamento" class="button">
 
@@ -88,6 +92,35 @@
         <img src="<?php echo get_site_url() ?>/wp-content/plugins/wp-tracking-servientrega/assets/images/success.png" class="success-img">
         <img src="<?php echo get_site_url() ?>/wp-content/plugins/wp-tracking-servientrega/assets/images/error.png" class="error-img">
 
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h3>Datos de acceso Servientrega</h3>
+      <form id="datos-acceso-servientrega">
+        
+        <label for="login-servitentrega">Login</label>
+        <input type="text" name="login-servitentrega" id="login-servitentrega" value="<?=get_option('login_servientrega')?>">
+
+        <label for="password-servientrega">Password</label>
+        <input type="password" id="password-servientrega" name="password-servientrega" value="<?=get_option('password_servientrega')?>">
+        <span>ver password</span>
+
+        <label for="codigo-facturacion-servientrega">Código de facturación</label>
+        <input type="text" name="codigo-facturacion-servientrega" id="codigo-facturacion-servientrega" value="<?=get_option('codigo_facturacion_servientrega')?>">
+
+        <label for="nombre-cargue-servientrega">Nombre cargue</label>
+        <input type="text" name="nombre-cargue-servientrega" id="nombre-cargue-servientrega" value="<?=get_option('nombre_cargue_servientrega')?>">
+        
+        <input type="submit" value="Guardar" id="save-datos-acceso-servientrega" name="save-origen-ciudad-departamento" class="button">
+
+        <img src="<?php echo get_site_url() ?>/wp-content/plugins/wp-tracking-servientrega/assets/images/loading-admin.gif" class="load-img" width="32">
+        <img src="<?php echo get_site_url() ?>/wp-content/plugins/wp-tracking-servientrega/assets/images/success.png" class="success-img">
+        <img src="<?php echo get_site_url() ?>/wp-content/plugins/wp-tracking-servientrega/assets/images/error.png" class="error-img">
+
+        <p><span class="messagge-template-error">* Debes seleccionar una ciudad y un departamento.</span></p>
       </form>
     </div>
   </div>

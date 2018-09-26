@@ -10,16 +10,6 @@ function action_woocommerce_payment_complete( $callable, $dataOder)
     $quantity = $item->get_quantity();
   }
 
-  $vendorId = get_post_meta($currentProduct->get_id(), 'vendor_id')[0]; 
-
-
-
-  if (!empty($vendorId)) {
-    $currentMoney = get_user_meta($vendorId, 'total_money')[0];
-    $newComission = ( $objOrder->get_total('edit') * get_option('vendor_comision') ) / 100;
-    update_usermeta($vendorId, 'total_money', $currentMoney+$newComission);
-  }
-
   $altoProducto = $currentProduct->get_attribute('alto-producto');
   $largoProducto = $currentProduct->get_attribute('largo-producto');
   $anchoProducto = $currentProduct->get_attribute('ancho-producto');
@@ -105,7 +95,7 @@ function action_woocommerce_payment_complete( $callable, $dataOder)
               'Num_Ancho' => $anchoProducto,
               'Num_Largo' => $largoProducto,
               'Des_DepartamentoDestino' => $estadoDestino,
-              'Des_DepartamentoOrigen' => get_user_meta($vendorId, 'user_departamento'),
+              'Des_DepartamentoOrigen' => get_option('origen_departamento'),
               'Gen_Cajaporte' => 0,
               'Gen_Sobreporte' => 0,
               'Nom_UnidadEmpaque' => 'GENERICA',
