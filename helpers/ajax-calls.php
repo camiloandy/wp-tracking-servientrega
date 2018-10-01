@@ -117,3 +117,24 @@ function saveDataAccesoServientrega()
   wp_die();
 }
 //END
+
+//Codigo para guardar datos de configuracion de acceso de servientrega.
+add_action('wp_ajax_nopriv_wptrackingservientregaadminjs_ajax_saveDataProductoServientrega','saveDataProductoServientrega');
+add_action('wp_ajax_wptrackingservientregaadminjs_ajax_saveDataProductoServientrega','saveDataProductoServientrega');
+
+function saveDataProductoServientrega()
+{
+  
+  $dataLenght = $_POST['dataLenght'];
+  $dataHeight = $_POST['dataHeight'];
+  $dataWidth = $_POST['dataWidth'];
+  $dataWeight = $_POST['dataWeight'];
+
+  update_option('lenght_servientrega', $dataLenght);
+  update_option('height_servientrega', $dataHeight);
+  update_option('width_servientrega', $dataWidth);
+  update_option('weight_servientrega', $dataWeight);
+
+  wp_die();
+}
+//END

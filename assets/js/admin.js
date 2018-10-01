@@ -137,4 +137,38 @@ jQuery(document).ready(function($) {
       });
   });
 
+  $('form#datos-producto-servientrega input[type=submit]').click(function(evt){
+    evt.preventDefault();
+
+    var that = $(this).parent(),
+        lenght = $('#lenght-product-servitentrega').val(),
+        height = $('#height-product-servitentrega').val(),
+        width = $('#width-product-servitentrega').val(),
+        weight = $('#weight-product-servitentrega').val();
+
+    $.ajax({
+      url: wptrackingservientregaadminjs_vars.ajaxurl,
+      type: 'post',
+      data: {
+        action: 'wptrackingservientregaadminjs_ajax_saveDataProductoServientrega',
+        dataLenght: lenght,
+        dataHeight: height,
+        dataWidth: width,
+        dataWeight : weight
+      }, 
+        beforeSend: function() {
+          console.log('guardando...');
+          $(that).find('img.load-img').css('display', 'inline');
+          $(that).find('img.success-img').css('display', 'none');  
+        },
+        success: function(resp) {
+          console.log(resp);
+          $(that).find('img.load-img').css('display', 'none');
+          $(that).find('input[type=submit]').prop('disabled', false);
+          $(that).find('img.success-img').css('display', 'inline');  
+          $(that).find('span.messagge-template-error').css('display', 'none');
+        }
+      });
+  });
+
 });

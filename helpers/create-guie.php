@@ -10,24 +10,38 @@ function action_woocommerce_payment_complete( $callable, $dataOder)
     $quantity = $item->get_quantity();
   }
 
-  $altoProducto = $currentProduct->get_attribute('alto-producto');
-  $largoProducto = $currentProduct->get_attribute('largo-producto');
-  $anchoProducto = $currentProduct->get_attribute('ancho-producto');
-  $pesoProducto = $currentProduct->get_attribute('peso-producto');
+  $altoProducto    = ($currentProduct->get_height('edit') > 0) ? 
+                     $currentProduct->get_height('edit') : 
+                     get_option('lenght_servitentrega');
+
+  $largoProducto   = ($currentProduct->get_length('edit') > 0) ? 
+                     $currentProduct->get_length('edit') : 
+                     get_option('height_servitentrega');
+
+  $anchoProducto   = ($currentProduct->get_width('edit') > 0) ? 
+                     $currentProduct->get_width('edit') : 
+                     get_option('width_servitentrega');
+
+  $pesoProducto    = ($currentProduct->get_weight('edit') > 0) ? 
+                     $currentProduct->get_weight('edit') : 
+                     get_option('weight_servitentrega');
+
   $pesoVolumetrico = (($altoProducto / 100) * ($anchoProducto / 100) * ($largoProducto / 100)) * 222;
   $precioProducto = $currentProduct->get_price();
   $precioTotal = $precioProducto * $quantity;
-  $sobreFlete = ($precioTotal * 1) / 100;
 
-  if ($sobreFlete < 300) 
-    $sobreFlete = 300;
+  if ($objOrder->get_payment_method() === 'wc-gateway-contra-entrega') {
+    $sobreFlete = ($precioTotal * 5) / 100;
+    if ($sobreFlete < 2200) 
+      $sobreFlete = 2200;
+  } else {
+    $sobreFlete = ($precioTotal * 1) / 100;  
+    if ($sobreFlete < 300) 
+      $sobreFlete = 300;
+  }
 
   if ($pesoVolumetrico > $pesoProducto) 
     $pesoProducto = $pesoVolumetrico;
-
-  $idComprador = $objOrder->get_customer_id('edit');
-
-  $ciudadDestino = !empty($objOrder->get_shipping_city()) ? $objOrder->get_shipping_city() : $objOrder->get_billing_city();
 
   $ns = "http://tempuri.org/";
 
@@ -42,15 +56,25 @@ function action_woocommerce_payment_complete( $callable, $dataOder)
 
   $url = "http://web.servientrega.com:8081/GeneracionGuias.asmx?wsdl";
 
-  $ciudadDestino = !empty($objOrder->get_shipping_city()) ? $objOrder->get_shipping_city() : $objOrder->get_billing_city();
-  $direccionDestino = !empty($objOrder->get_shipping_address_1()) ? $objOrder->get_shipping_address_1() : $objOrder->get_billing_address_1();
-  $estadoDestino = !empty($objOrder->get_shipping_state('edit')) ? $objOrder->get_shipping_state('edit') : $objOrder->get_billing_state('edit'); 
+  $ciudadDestino        = !empty($objOrder->get_shipping_city()) ? 
+                          $objOrder->get_shipping_city() : 
+                          $objOrder->get_billing_city();
+
+  $direccionDestino     = !empty($objOrder->get_shipping_address_1()) ? 
+                          $objOrder->get_shipping_address_1() : 
+                          $objOrder->get_billing_address_1();
+
+  $departamentoDestino  = !empty($objOrder->get_shipping_state('edit')) ? 
+                          $objOrder->get_shipping_state('edit') : 
+                          $objOrder->get_billing_state('edit'); 
+
+  $departamentoDestino = get_term_by('id', $departamentoDestino, 'departamentos')->name;
+  $departamentoDestino = change_accent_mark($departamentoDestino);
+  $departamentoDestino = strtoupper($departamentoDestino);
 
   try {
     $client = new SoapClient($url, [ "trace" => 1 ] );
     $client->__setSoapHeaders($header); 
-
-    //update_post_meta($dataOder->id, 'data_servientrega_guie', $ciudadDestino);
 
     $parametrosGuia = array(
       'envios' => array(
@@ -94,7 +118,7 @@ function action_woocommerce_payment_complete( $callable, $dataOder)
               'Num_Alto' => $altoProducto,
               'Num_Ancho' => $anchoProducto,
               'Num_Largo' => $largoProducto,
-              'Des_DepartamentoDestino' => $estadoDestino,
+              'Des_DepartamentoDestino' => $departamentoDestino,
               'Des_DepartamentoOrigen' => get_option('origen_departamento'),
               'Gen_Cajaporte' => 0,
               'Gen_Sobreporte' => 0,
@@ -128,6 +152,7 @@ function action_woocommerce_payment_complete( $callable, $dataOder)
                 ),
               ),
               */
+
               'Est_EnviarCorreo' => false,
             ),
           ),
@@ -136,7 +161,10 @@ function action_woocommerce_payment_complete( $callable, $dataOder)
    );
 
    $result = $client->CargueMasivoExterno($parametrosGuia);
-   update_post_meta($dataOder->id, 'data_servientrega_guie', $result);
+
+   update_option('guia_number', (integer)($result->envios->CargueMasivoExternoDTO->objEnvios->EnviosExterno->Num_Guia));
+
+   update_post_meta($dataOder->id, 'data_servientrega_guie', (integer)($result->envios->CargueMasivoExternoDTO->objEnvios->EnviosExterno->Num_Guia));
 
   } catch ( SoapFault $e ) {
    echo $e->getMessage();

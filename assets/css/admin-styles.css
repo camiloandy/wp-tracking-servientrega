@@ -1,20 +1,28 @@
-form#origen-ciudad-departamento label,
-form#origen-ciudad-departamento input,
-form#origen-ciudad-departamento select,
-form#lista-ciudad-departamento input[type=submit],
-form#datos-acceso-servientrega label,
-form#datos-acceso-servientrega input {
-	display: block;
+h3 {
+	margin: 35px 0 0 0;
 }
 
-form#origen-ciudad-departamento label,
-form#datos-acceso-servientrega label {
-	margin-top: 15px;
+form label,
+form input,
+form select {
+	display: block !important;
 }
 
-form#origen-ciudad-departamento select {
+form label {
+	margin: 15px 0 5px 0;
+}
+
+form select,
+form input[type=text],
+form input[type=number],
+form input[type=password] {
 	height: 36px;
 	width: 250px;
+}
+
+form#lista-ciudad-departamento label,
+form#lista-ciudad-departamento input[type=radio] {
+	display: inline-block !important;
 }
 
 img.loading-cities-admin {
@@ -30,24 +38,18 @@ img.loading-cities-admin {
 	margin-top: 20px !important;
 }
 
-form#origen-ciudad-departamento img.success-img,
-form#origen-ciudad-departamento img.error-img,
-form#origen-ciudad-departamento img.load-img,
-form#lista-ciudad-departamento img.success-img,
-form#lista-ciudad-departamento img.error-img,
-form#lista-ciudad-departamento img.load-img,
-form#datos-acceso-servientrega img.success-img,
-form#datos-acceso-servientrega img.error-img,
-form#datos-acceso-servientrega img.load-img {
+form img.success-img,
+form img.error-img,
+form img.load-img {
   top: -29px;
   left: 71px;
   position: relative;
   display: none;
 }
 
-form#origen-ciudad-departamento .messagge-template-error,
-form#lista-ciudad-departamento .messagge-template-error,
-form#datos-acceso-servientrega .messagge-template-error {
+form .messagge-template-error,
+form .messagge-template-error,
+form .messagge-template-error {
 	color: red;
 	font-size: 14px;
 	font-style: italic;

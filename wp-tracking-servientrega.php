@@ -25,6 +25,7 @@ include __DIR__ . '/helpers/cpt-departamentos-ciudades.php';
 include __DIR__ . '/helpers/ajax-calls.php';
 include __DIR__ . '/helpers/add_select_fields.php';
 include __DIR__ . '/includes/ShowInormationGuie.php';
+include __DIR__ . '/includes/contraEntregaPaymentGateway.php';
 
 
 //Agregando la hoja de estilos css principal

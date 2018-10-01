@@ -1,4 +1,4 @@
-<div class="container">
+  <div class="container">
   <div class="row">
     <h2 class="col-12">Modulo de manejo de envios Servientrega</h2>
   </div>
@@ -121,6 +121,33 @@
         <img src="<?php echo get_site_url() ?>/wp-content/plugins/wp-tracking-servientrega/assets/images/error.png" class="error-img">
 
         <p><span class="messagge-template-error">* Debes seleccionar una ciudad y un departamento.</span></p>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h3>Datos de producto por defecto.</h3>
+      <form id="datos-producto-servientrega">
+        
+        <label for="lenght-product-servitentrega">Longitud</label>
+        <input type="number" name="lenght-product-servitentrega" id="lenght-product-servitentrega" value="<?=get_option('lenght_servientrega')?>" placeholder="cm" min="1" step="any">
+
+        <label for="height-product-servitentrega">Alto</label>
+        <input type="number" name="height-product-servitentrega" id="height-product-servitentrega" value="<?=get_option('height_servientrega')?>" placeholder="cm" min="1" step="any">
+
+        <label for="width-product-servitentrega">Ancho</label>
+        <input type="number" name="width-product-servitentrega" id="width-product-servitentrega" value="<?=get_option('width_servientrega')?>" placeholder="cm" min="1" step="any">
+
+        <label for="weight-product-servitentrega">Peso</label>
+        <input type="number" name="weight-product-servitentrega" id="weight-product-servitentrega" value="<?=get_option('weight_servientrega')?>" placeholder="cm" min="0.1" step="any">
+
+        <input type="submit" value="Guardar" id="save-datos-producto-servientrega" name="save-datos-producto-servientrega" class="button">
+
+        <img src="<?php echo get_site_url() ?>/wp-content/plugins/wp-tracking-servientrega/assets/images/loading-admin.gif" class="load-img" width="32">
+        <img src="<?php echo get_site_url() ?>/wp-content/plugins/wp-tracking-servientrega/assets/images/success.png" class="success-img">
+        <img src="<?php echo get_site_url() ?>/wp-content/plugins/wp-tracking-servientrega/assets/images/error.png" class="error-img">
+
       </form>
     </div>
   </div>
